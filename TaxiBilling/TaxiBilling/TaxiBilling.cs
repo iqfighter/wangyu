@@ -8,9 +8,19 @@ namespace TaxiBilling
 {
     public class TaxiBilling
     {
-        public int Bill(int i)
+        private double _unitPrice = 0.8;
+        private double _extraPercentage = 0.5;
+        private int _extraChargeStartDistance = 8;
+        public double Bill(double distance)
         {
-            return (int) (i * 0.8);
+            double result;
+            if (distance >= _extraChargeStartDistance)
+            {
+                result = _unitPrice * distance + _unitPrice * _extraPercentage * (distance - _extraChargeStartDistance);
+                return Math.Round(result, 2);
+            }
+            result = distance*_unitPrice;
+            return Math.Round(result, 2);
         }
     }
 }
