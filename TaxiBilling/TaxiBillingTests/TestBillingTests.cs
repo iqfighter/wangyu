@@ -31,9 +31,22 @@ namespace TaxiBillingTests
         }
 
         [TestMethod]
+        public void Given_Long_Distance_Waiting_Time_Should_Return_Both_Waiting_And_Distance_Price()
+        {
+            Assert.AreEqual(17, _sut.Bill(15, 8));
+        }
+
+        [TestMethod]
         public void Should_Return_Round_Price()
         {
             Assert.AreEqual(6, _sut.Bill(7));
         }
+
+        [TestMethod]
+        public void Given_Invalid_Input_Should_Return_0()
+        {
+            Assert.AreEqual(0, _sut.Bill(-3, -2));
+        }
+
     }
 }

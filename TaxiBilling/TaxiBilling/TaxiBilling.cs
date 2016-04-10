@@ -3,34 +3,32 @@ namespace TaxiBilling
 {
     public class TaxiBilling
     {
-        private double _unitPrice = 0.8;
-        private double _extraPercentage = 0.5;
-        private int _extraChargeDistance = 8;
+        private readonly double _unitPrice = 0.8;
+        private readonly double _extraPercentage = 0.5;
+        private readonly int _extraChargeDistance = 8;
         public int StartPrice { get; } = 6;
         public int StartDistance { get; } = 2;
         public double WaitingPrice { get; } = 0.25;
 
         public int Bill(double distance, int waiting = 0)
         {
-            double waitingFee = waiting * WaitingPrice;
-            double distanceFee;
+            if (distance < 0 || waiting < 0)
+                return 0;
+
+            var waitingFee = waiting * WaitingPrice;
 
             if (distance <= StartDistance)
             {
-                distanceFee = StartDistanceCalc(distance);
-                return RoundResult(distanceFee + waitingFee);
+                return RoundResult(StartDistanceCalc(distance) + waitingFee);
             }
 
+            
             if (distance >= _extraChargeDistance)
             {
-                distanceFee = ExceedDistanceCalc(distance);
-            }
-            else
-            {
-                distanceFee = CommonCalc(distance);
+                return RoundResult(ExceedDistanceCalc(distance) + waitingFee);
             }
 
-            return RoundResult(distanceFee + waitingFee);
+            return RoundResult(CommonCalc(distance) + waitingFee);
         }
 
         private static int RoundResult(double result)
