@@ -8,5 +8,9 @@ namespace TaxiBilling
 {
     public class TaxiBilling
     {
+        public int Bill(int i)
+        {
+            return (int) (i * 0.8);
+        }
     }
 }
