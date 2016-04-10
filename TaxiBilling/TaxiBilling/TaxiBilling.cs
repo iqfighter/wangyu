@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace TaxiBilling
 {
     public class TaxiBilling
@@ -15,7 +10,7 @@ namespace TaxiBilling
         public int StartDistance { get; } = 2;
         public double WaitingPrice { get; } = 0.25;
 
-        public double Bill(double distance, int waiting = 0)
+        public int Bill(double distance, int waiting = 0)
         {
             double waitingFee = waiting * WaitingPrice;
             double distanceFee;
@@ -23,7 +18,7 @@ namespace TaxiBilling
             if (distance <= StartDistance)
             {
                 distanceFee = StartDistanceCalc(distance);
-                return Math.Round(distanceFee + waitingFee, 2);
+                return RoundResult(distanceFee + waitingFee);
             }
 
             if (distance >= _extraChargeDistance)
@@ -35,7 +30,12 @@ namespace TaxiBilling
                 distanceFee = CommonCalc(distance);
             }
 
-            return Math.Round(distanceFee + waitingFee, 2);
+            return RoundResult(distanceFee + waitingFee);
+        }
+
+        private static int RoundResult(double result)
+        {
+            return (int) Math.Round(result);
         }
 
         private double CommonCalc(double distance)

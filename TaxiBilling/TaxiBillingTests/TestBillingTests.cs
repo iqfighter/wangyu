@@ -15,7 +15,7 @@ namespace TaxiBillingTests
         [TestMethod]
         public void Given_Long_Distance_Should_Return_With_Extra_Charge_Test()
         {
-            Assert.AreEqual(7.6, _sut.Bill(9));
+            Assert.AreEqual(8, _sut.Bill(9));
         }
 
         [TestMethod]
@@ -27,7 +27,13 @@ namespace TaxiBillingTests
         [TestMethod]
         public void Given_Waiting_Time_Should_Return_Both_Waiting_And_Distance_Price()
         {
-            Assert.AreEqual(_sut.StartPrice + _sut.WaitingPrice, _sut.Bill(1, 1));
+            Assert.AreEqual(6, _sut.Bill(1, 1));
+        }
+
+        [TestMethod]
+        public void Should_Return_Round_Price()
+        {
+            Assert.AreEqual(6, _sut.Bill(7));
         }
     }
 }
