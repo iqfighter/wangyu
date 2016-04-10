@@ -17,5 +17,17 @@ namespace TaxiBillingTests
         {
             Assert.AreEqual(7.6, _sut.Bill(9));
         }
+
+        [TestMethod]
+        public void Given_Less_Than_StartDistance_Should_Return_StartPrice()
+        {
+            Assert.AreEqual(_sut.StartPrice, _sut.Bill(1));
+        }
+
+        [TestMethod]
+        public void Given_Waiting_Time_Should_Return_Both_Waiting_And_Distance_Price()
+        {
+            Assert.AreEqual(_sut.StartPrice + _sut.WaitingPrice, _sut.Bill(1, 1));
+        }
     }
 }
